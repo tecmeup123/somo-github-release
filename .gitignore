@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+coverage/
+.nyc_output
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+.postgresql/
+drizzle/
+
+# Drizzle Kit
+migrations/.snapshots/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Operating System
+Thumbs.db
+
+# Optional: Remove these if you want to track them
+attached_assets/
+vitest.config.ts
