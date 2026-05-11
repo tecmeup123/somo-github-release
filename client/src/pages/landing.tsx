@@ -4,15 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import { ccc } from "@ckb-ccc/connector-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Sparkles, Lock, Gift, Globe, Coins, AlertTriangle, 
-  Flame, ShoppingCart, Send, Calendar, Zap, Vote, 
-  DollarSign, Building2, TrendingDown, Users, Cpu, 
-  Rocket, ChevronDown, ExternalLink, HelpCircle, Trophy, Palette, Menu, X
+import {
+  Sparkles, Lock, Gift, Globe, Coins, AlertTriangle,
+  Flame, ShoppingCart, Send, Calendar, Zap, Vote,
+  DollarSign, Building2, TrendingDown, Users, Cpu,
+  Rocket, ChevronDown, ExternalLink, HelpCircle, Trophy, Palette, Menu, X,
+  ArrowRight, Wallet
 } from "lucide-react";
 import { getTierColor, getContrastingTextColor, type PixelTier } from "@shared/canvas-utils";
 import { formatCKB } from "@/utils/formatting";
 import { useLocation } from "wouter";
+import CanvasPreview from "@/components/canvas/CanvasPreview";
 import ckbEcoFundLogo from "@assets/rkDnocbU_400x400_1760975756377.jpg";
 
 // Sticky Navigation Component
@@ -177,6 +179,22 @@ export default function Landing() {
   );
 }
 
+// Static activity feed for the landing canvas preview
+const LANDING_ACTIVITY = [
+  { who: "astra",  action: "minted",   tier: "legendary" as const, coord: [22, 26] },
+  { who: "lumen",  action: "minted",   tier: "epic"      as const, coord: [18, 30] },
+  { who: "tess",   action: "minted",   tier: "rare"      as const, coord: [9,  19] },
+  { who: "mira",   action: "minted",   tier: "rare"      as const, coord: [37, 41] },
+  { who: "rune",   action: "voted",    tier: null,                  coord: null    },
+];
+
+const TIER_COLORS: Record<string, string> = {
+  legendary: "#DBAB00",
+  epic:      "#FFBDFC",
+  rare:      "#09D3FF",
+  common:    "#66C084",
+};
+
 // Hero Section Component
 function HeroSection() {
   const ref = useRef(null);
@@ -187,13 +205,13 @@ function HeroSection() {
   const { open } = ccc.useCcc();
   const signer = ccc.useSigner();
   const [, setLocation] = useLocation();
-  
-  const { data: stats } = useQuery<{ 
+
+  const { data: stats } = useQuery<{
     claimedPixels: number;
     totalCKBLocked: number;
     activeFounders: number;
   }>({
-    queryKey: ['/api/stats'],
+    queryKey: ["/api/stats"],
   });
 
   useEffect(() => {
@@ -208,148 +226,286 @@ function HeroSection() {
   useEffect(() => {
     if (signer && isConnecting) {
       setIsConnecting(false);
-      setLocation('/app');
+      setLocation("/app");
     }
   }, [signer, isConnecting, setLocation]);
 
   // Reset connecting state if user dismisses modal without connecting
   useEffect(() => {
     if (isConnecting && !signer) {
-      const timeout = setTimeout(() => {
-        setIsConnecting(false);
-      }, 3000);
+      const timeout = setTimeout(() => setIsConnecting(false), 3000);
       return () => clearTimeout(timeout);
     }
   }, [isConnecting, signer]);
 
   const handleConnectAndNavigate = async () => {
     if (signer) {
-      // Already connected, go straight to app
-      setLocation('/app');
+      setLocation("/app");
     } else {
-      // Not connected, trigger wallet connection
       setIsConnecting(true);
       open();
     }
   };
 
+  const pctClaimed = mintedCount > 0 ? Math.round((mintedCount / 2500) * 100) : 0;
+
   return (
-    <section 
+    <section
       id="hero"
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       data-testid="section-hero"
     >
-      {/* Animated Background Grid */}
+      {/* Background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-[size:24px_24px]" />
-      
-      {/* Gradient Overlay */}
+      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
-
-      {/* Floating Particles */}
       <FloatingParticles />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#DBAB00] via-[#FFBDFC] to-[#09D3FF]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Be One of 2,500 Founders
-          </motion.h1>
+      <div className="relative z-10 w-full max-w-[1480px] mx-auto px-6 pt-28 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
 
-          <motion.p 
-            className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-3 md:mb-4 max-w-3xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Claim Territory → Participate → Govern → Build Community
-          </motion.p>
-
-          <motion.p
-            className="text-base md:text-lg text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            Claim your pixel and earn governance power to shape the future together
-          </motion.p>
-
-          {/* Live Stats */}
+          {/* ── Left: copy, stats, CTAs ── */}
           <motion.div
-            className="flex flex-wrap justify-center gap-1.5 sm:gap-2 md:gap-4 mb-6 md:mb-8 px-2"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            {/* Pixels Minted */}
-            <div className="inline-flex items-center gap-1 sm:gap-1.5 md:gap-3 px-2 sm:px-3 md:px-6 py-1.5 sm:py-2 md:py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10">
-              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-5 md:w-5 text-[#DBAB00] flex-shrink-0" />
-              <span className="text-sm sm:text-base md:text-2xl font-bold whitespace-nowrap" data-testid="text-minted-count">
-                {mintedCount} / 2,500
-              </span>
-              <span className="text-[9px] sm:text-xs md:text-base text-gray-400">Minted</span>
-            </div>
+            {/* Live badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#09D3FF]/40 bg-[#09D3FF]/10 text-[#09D3FF] text-xs font-mono mb-6"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#09D3FF] animate-pulse" />
+              Mint 02 · live on CKB testnet
+            </motion.div>
 
-            {/* Total CKB Locked */}
-            <div className="inline-flex items-center gap-1 sm:gap-1.5 md:gap-3 px-2 sm:px-3 md:px-6 py-1.5 sm:py-2 md:py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10">
-              <Lock className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-5 md:w-5 text-[#FFBDFC] flex-shrink-0" />
-              <span className="text-sm sm:text-base md:text-2xl font-bold whitespace-nowrap" data-testid="text-ckb-locked">
-                {formatCKB(ckbLocked)}
-              </span>
-              <span className="text-[9px] sm:text-xs md:text-base text-gray-400">Locked</span>
-            </div>
+            <motion.h1
+              className="text-5xl lg:text-[72px] font-bold leading-[0.95] tracking-tight mb-6"
+              style={{ fontFamily: "var(--font-display)" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Own a pixel.<br />
+              <span
+                className="text-[#09D3FF]"
+                style={{ textShadow: "0 0 14px rgba(9,211,255,0.6)" }}
+              >
+                Shape
+              </span>{" "}
+              the protocol.
+            </motion.h1>
 
-            {/* Active Founders */}
-            <div className="inline-flex items-center gap-1 sm:gap-1.5 md:gap-3 px-2 sm:px-3 md:px-6 py-1.5 sm:py-2 md:py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10">
-              <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-5 md:w-5 text-[#09D3FF] flex-shrink-0" />
-              <span className="text-sm sm:text-base md:text-2xl font-bold whitespace-nowrap" data-testid="text-active-founders">
-                {activeFounders}
-              </span>
-              <span className="text-[9px] sm:text-xs md:text-base text-gray-400">Founders</span>
-            </div>
+            <motion.p
+              className="text-lg text-gray-300 leading-relaxed max-w-lg mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              SoMo is a 50×50 canvas where each pixel is a Spore NFT and a
+              governance pass. Mint one, earn points toward a{" "}
+              <span className="text-white font-mono">350M</span> token airdrop,
+              and vote on what comes next.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              className="flex flex-wrap gap-3 mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+            >
+              <Button
+                size="lg"
+                onClick={handleConnectAndNavigate}
+                disabled={isConnecting}
+                className="bg-[#09D3FF] text-[#061318] font-bold hover:bg-[#09D3FF]/90 px-8 py-6 text-base rounded-xl shadow-[0_0_20px_rgba(9,211,255,0.35)] hover:shadow-[0_0_28px_rgba(9,211,255,0.5)] transition-all disabled:opacity-50"
+                data-testid="button-hero-cta"
+              >
+                {isConnecting ? "Connecting…" : signer ? "Enter the canvas" : "Enter the canvas"}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+
+              {!signer && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={open}
+                  className="border-white/20 hover:bg-white/10 px-8 py-6 text-base rounded-xl"
+                  data-testid="button-connect-wallet-hero"
+                >
+                  <Wallet className="mr-2 h-4 w-4" />
+                  Connect wallet
+                </Button>
+              )}
+
+              <Button
+                size="lg"
+                variant="ghost"
+                className="text-gray-400 hover:text-white px-6 py-6 text-base"
+                data-testid="button-learn-more"
+                onClick={() =>
+                  document
+                    .getElementById("how-it-works")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Learn more
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.div>
+
+            {/* Inline stats */}
+            <motion.div
+              className="grid grid-cols-3 gap-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
+                  Claimed
+                </div>
+                <div
+                  className="text-3xl font-bold leading-none"
+                  style={{ fontFamily: "var(--font-display)" }}
+                  data-testid="text-minted-count"
+                >
+                  {mintedCount.toLocaleString()}
+                  <span className="text-sm text-gray-500 font-mono ml-1">
+                    / 2,500
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
+                  Founders
+                </div>
+                <div
+                  className="text-3xl font-bold leading-none"
+                  style={{ fontFamily: "var(--font-display)" }}
+                  data-testid="text-active-founders"
+                >
+                  {activeFounders}
+                </div>
+              </div>
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
+                  CKB locked
+                </div>
+                <div
+                  className="text-3xl font-bold leading-none"
+                  style={{ fontFamily: "var(--font-display)" }}
+                  data-testid="text-ckb-locked"
+                >
+                  {formatCKB(ckbLocked)}
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* ── Right: canvas preview (desktop only) ── */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
+            className="hidden lg:flex flex-col gap-3"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
           >
-            <Button
-              size="lg"
-              onClick={handleConnectAndNavigate}
-              disabled={isConnecting}
-              className="bg-gradient-to-r from-[#DBAB00] to-[#FFBDFC] hover:opacity-90 text-black font-bold px-6 md:px-8 py-5 md:py-6 text-base md:text-lg rounded-xl shadow-lg shadow-[#DBAB00]/50 hover:shadow-[#DBAB00]/70 transition-all disabled:opacity-50"
-              data-testid="button-hero-cta"
-            >
-              <Rocket className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-              {isConnecting ? 'Connecting...' : signer ? 'Go to App' : 'Connect & Start'}
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/20 hover:bg-white/10 px-6 md:px-8 py-5 md:py-6 text-base md:text-lg rounded-xl"
-              data-testid="button-learn-more"
-              onClick={() => {
-                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+            {/* Canvas card */}
+            <div
+              className="rounded-xl p-4"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%), #0c1219",
+                border: "1px solid #1f2a37",
               }}
             >
-              Learn More
-              <ChevronDown className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-            </Button>
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500">
+                    Eternal Land
+                  </div>
+                  <div className="text-sm font-semibold">50 × 50 · Spore DOB/0</div>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#09D3FF]/40 bg-[#09D3FF]/10 text-[#09D3FF] text-[10px] font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#09D3FF] animate-pulse" />
+                  {pctClaimed}% claimed
+                </div>
+              </div>
+
+              <CanvasPreview />
+
+              {/* Tier legend */}
+              <div
+                className="mt-3 p-2.5 rounded-lg flex flex-wrap gap-x-4 gap-y-2"
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid #1f2a37" }}
+              >
+                {[
+                  { tier: "legendary", label: "S · Legendary" },
+                  { tier: "epic",      label: "A · Epic"      },
+                  { tier: "rare",      label: "B · Rare"      },
+                  { tier: "common",    label: "D · Common"    },
+                ].map((t) => (
+                  <div key={t.tier} className="flex items-center gap-1.5">
+                    <span
+                      className="w-3 h-3 rounded-sm flex-shrink-0"
+                      style={{ background: TIER_COLORS[t.tier] }}
+                    />
+                    <span className="text-[11px] font-semibold text-gray-200">
+                      {t.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Live activity card */}
+            <div
+              className="rounded-xl p-3"
+              style={{
+                background: "#0c1219",
+                border: "1px solid #1f2a37",
+              }}
+            >
+              <div className="flex items-center justify-between mb-2.5">
+                <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500">
+                  Live activity
+                </span>
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border border-[#09D3FF]/40 bg-[#09D3FF]/10 text-[#09D3FF] text-[9px] font-mono">
+                  <span className="w-1 h-1 rounded-full bg-[#09D3FF] animate-pulse" />
+                  LIVE
+                </span>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                {LANDING_ACTIVITY.map((a, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 text-[11px]"
+                    style={{ opacity: 1 - i * 0.15 }}
+                  >
+                    {a.tier ? (
+                      <span
+                        className="w-2 h-2 rounded-sm flex-shrink-0"
+                        style={{ background: TIER_COLORS[a.tier] }}
+                      />
+                    ) : (
+                      <Vote className="w-2.5 h-2.5 text-gray-500 flex-shrink-0" />
+                    )}
+                    <span className="font-mono text-white">{a.who}</span>
+                    <span className="text-gray-500">{a.action}</span>
+                    {a.coord && (
+                      <span className="font-mono text-gray-600 text-[10px]">
+                        ({a.coord[0]},{a.coord[1]})
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
