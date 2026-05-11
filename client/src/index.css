@@ -4,6 +4,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal overflow on all screen sizes */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Safe area utilities for notched/home-indicator devices */
+@layer utilities {
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .mobile-safe-bottom {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
+  @media (min-width: 768px) {
+    .mobile-safe-bottom {
+      padding-bottom: 0;
+    }
+  }
+}
+
 :root {
   /* Dark theme with proper contrast */
   --background: 222 84% 4%;

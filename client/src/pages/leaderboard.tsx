@@ -114,7 +114,7 @@ export default function Leaderboard() {
                 <div className="text-xl md:text-3xl font-bold text-green-500 tabular-nums" data-testid="text-total-founders">
                   {totalFounders}
                 </div>
-                <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Founders</div>
+                <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Founders</div>
               </CardContent>
             </Card>
 
@@ -124,7 +124,7 @@ export default function Leaderboard() {
                 <div className="text-xl md:text-3xl font-bold text-primary tabular-nums" data-testid="text-total-ckb-locked">
                   {formatCompactNumber(stats?.totalCKBLocked || 0)}
                 </div>
-                <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">CKB Locked</div>
+                <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">CKB Locked</div>
               </CardContent>
             </Card>
 
@@ -134,7 +134,7 @@ export default function Leaderboard() {
                 <div className="text-xl md:text-3xl font-bold text-yellow-500 tabular-nums" data-testid="text-top-influence">
                   {topInfluence.toFixed(1)}
                 </div>
-                <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Top Score</div>
+                <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Top Score</div>
               </CardContent>
             </Card>
           </div>
@@ -214,11 +214,11 @@ export default function Leaderboard() {
                                 </a>
                               </div>
                               <div className="flex items-center gap-2 flex-wrap">
-                                <Badge variant="secondary" className="text-[10px] md:text-xs px-1.5 py-0 h-5">
+                                <Badge variant="secondary" className="text-xs px-1.5 py-0 h-5">
                                   <Trophy className="w-2.5 h-2.5 md:w-3 md:h-3 mr-1" />
                                   {entry.pixelCount}
                                 </Badge>
-                                <span className="text-[10px] md:text-xs text-muted-foreground">
+                                <span className="text-xs text-muted-foreground">
                                   {formatCKB(entry.totalCkb || 0)}
                                 </span>
                               </div>
@@ -226,7 +226,7 @@ export default function Leaderboard() {
 
                             {/* Influence Score */}
                             <div className="text-right flex-shrink-0">
-                              <div className="text-[10px] md:text-xs text-muted-foreground mb-0.5">Score</div>
+                              <div className="text-xs text-muted-foreground mb-0.5">Score</div>
                               <div className="text-base md:text-xl font-bold text-primary tabular-nums">
                                 {(entry.influence || 0).toFixed(1)}
                               </div>
@@ -301,10 +301,10 @@ export default function Leaderboard() {
                                 </a>
                               </div>
                               <div className="flex items-center gap-2 flex-wrap">
-                                <Badge variant="secondary" className="text-[10px] md:text-xs px-1.5 py-0 h-5 font-mono">
+                                <Badge variant="secondary" className="text-xs px-1.5 py-0 h-5 font-mono">
                                   {entry.referralCode}
                                 </Badge>
-                                <span className="text-[10px] md:text-xs text-muted-foreground">
+                                <span className="text-xs text-muted-foreground">
                                   {(1 + entry.currentBoostLevel / 100).toFixed(2)}x boost
                                 </span>
                               </div>
@@ -312,7 +312,7 @@ export default function Leaderboard() {
 
                             {/* Referral Count */}
                             <div className="text-right flex-shrink-0">
-                              <div className="text-[10px] md:text-xs text-muted-foreground mb-0.5">Refs</div>
+                              <div className="text-xs text-muted-foreground mb-0.5">Refs</div>
                               <div className="text-base md:text-xl font-bold text-amber-500 tabular-nums">
                                 {entry.totalReferrals}
                               </div>

@@ -366,7 +366,7 @@ function HeroSection() {
               transition={{ delay: 0.7 }}
             >
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
                   Claimed
                 </div>
                 <div
@@ -381,7 +381,7 @@ function HeroSection() {
                 </div>
               </div>
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
                   Founders
                 </div>
                 <div
@@ -393,7 +393,7 @@ function HeroSection() {
                 </div>
               </div>
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.15em] text-gray-500 mb-1">
                   CKB locked
                 </div>
                 <div
@@ -424,12 +424,12 @@ function HeroSection() {
             >
               <div className="flex items-center justify-between mb-3">
                 <div>
-                  <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500">
+                  <div className="text-xs font-mono uppercase tracking-[0.15em] text-gray-500">
                     Eternal Land
                   </div>
                   <div className="text-sm font-semibold">50 × 50 · Spore DOB/0</div>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#09D3FF]/40 bg-[#09D3FF]/10 text-[#09D3FF] text-[10px] font-mono">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#09D3FF]/40 bg-[#09D3FF]/10 text-[#09D3FF] text-xs font-mono">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#09D3FF] animate-pulse" />
                   {pctClaimed}% claimed
                 </div>
@@ -470,7 +470,7 @@ function HeroSection() {
               }}
             >
               <div className="flex items-center justify-between mb-2.5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-500">
+                <span className="text-xs font-mono uppercase tracking-[0.15em] text-gray-500">
                   Live activity
                 </span>
                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border border-[#09D3FF]/40 bg-[#09D3FF]/10 text-[#09D3FF] text-[9px] font-mono">
@@ -496,7 +496,7 @@ function HeroSection() {
                     <span className="font-mono text-white">{a.who}</span>
                     <span className="text-gray-500">{a.action}</span>
                     {a.coord && (
-                      <span className="font-mono text-gray-600 text-[10px]">
+                      <span className="font-mono text-gray-600 text-xs">
                         ({a.coord[0]},{a.coord[1]})
                       </span>
                     )}

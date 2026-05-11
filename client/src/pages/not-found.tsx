@@ -17,7 +17,8 @@ export default function NotFound() {
           transition={{ duration: 0.5 }}
         >
           <div
-            className="text-[8rem] md:text-[12rem] font-bold leading-none tabular-nums select-none"
+            className="font-bold leading-none tabular-nums select-none"
+            style={{ fontSize: "clamp(4.5rem, 22vw, 10rem)" }}
             style={{
               fontFamily: "var(--font-display)",
               background: "linear-gradient(135deg, #09D3FF 0%, #FFBDFC 50%, #DBAB00 100%)",

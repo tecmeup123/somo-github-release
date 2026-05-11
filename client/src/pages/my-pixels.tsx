@@ -214,7 +214,7 @@ export default function MyPixels() {
                   <div className="text-xl md:text-3xl font-bold text-blue-500 tabular-nums" data-testid="text-pixels-owned">
                     {myPixels.length}
                   </div>
-                  <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Pixels</div>
+                  <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Pixels</div>
                 </CardContent>
               </Card>
 
@@ -224,7 +224,7 @@ export default function MyPixels() {
                   <div className="text-xl md:text-3xl font-bold text-primary tabular-nums" data-testid="text-total-locked">
                     {formatCKB(myPixels.reduce((sum, p) => sum + (p.price || 0), 0))}
                   </div>
-                  <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">CKB</div>
+                  <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">CKB</div>
                 </CardContent>
               </Card>
 
@@ -236,12 +236,12 @@ export default function MyPixels() {
                       <div className="text-xl md:text-3xl font-bold text-amber-500 tabular-nums">
                         {referralStats.totalReferrals}
                       </div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Refs</div>
+                      <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Refs</div>
                     </>
                   ) : (
                     <>
                       <div className="text-xl md:text-3xl font-bold text-muted-foreground tabular-nums">0</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Refs</div>
+                      <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Refs</div>
                     </>
                   )}
                 </CardContent>
@@ -405,7 +405,7 @@ export default function MyPixels() {
                           <div className="flex items-center gap-2 flex-wrap mb-2">
                             <Badge 
                               variant="secondary" 
-                              className="text-[10px] md:text-xs px-1.5 py-0 h-5"
+                              className="text-xs px-1.5 py-0 h-5"
                               style={{
                                 color: getTierColor(pixel.tier),
                                 backgroundColor: getTierColor(pixel.tier) + '20'
@@ -418,7 +418,7 @@ export default function MyPixels() {
                             </span>
                           </div>
                           {pixel.claimedAt && (
-                            <div className="text-[10px] md:text-xs text-muted-foreground">
+                            <div className="text-xs text-muted-foreground">
                               {formatDistanceToNow(new Date(pixel.claimedAt), { addSuffix: true })}
                             </div>
                           )}

@@ -16,22 +16,25 @@ export default function BottomNavigation() {
   };
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t border-primary/20 shadow-sm">
+    <nav
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t border-primary/20 shadow-sm"
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+    >
       <div className="flex items-center justify-around px-1 py-2">
         {navLinks.map(({ href, label, icon: Icon }) => {
           const active = isActive(href);
           return (
             <Link key={href} href={href}>
               <button
-                className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-md transition-all duration-200 ${
+                className={`flex flex-col items-center gap-0.5 px-4 py-3 min-h-[48px] rounded-md transition-all duration-200 ${
                   active
                     ? "bg-primary/20 text-primary"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 }`}
                 data-testid={`bottom-nav-${label.toLowerCase().replace(' ', '-')}`}
               >
-                <Icon className={`h-4 w-4 ${active ? "scale-110" : ""}`} />
-                <span className="text-[10px] font-medium">{label}</span>
+                <Icon className={`h-5 w-5 ${active ? "scale-110" : ""}`} />
+                <span className="text-xs font-medium">{label}</span>
               </button>
             </Link>
           );

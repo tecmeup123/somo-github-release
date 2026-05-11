@@ -44,7 +44,7 @@ export default function GameStatusBoard() {
           <div className="text-xl md:text-3xl font-bold text-blue-500 tabular-nums" data-testid="text-remaining-pixels">
             {canvasStats?.remainingPixels?.toLocaleString() || '2,500'}
           </div>
-          <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Available</div>
+          <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Available</div>
         </CardContent>
       </Card>
 
@@ -55,7 +55,7 @@ export default function GameStatusBoard() {
           <div className="text-xl md:text-3xl font-bold text-green-500 tabular-nums" data-testid="text-claimed-pixels">
             {canvasStats?.claimedPixels?.toLocaleString() || '0'}
           </div>
-          <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Claimed</div>
+          <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Claimed</div>
         </CardContent>
       </Card>
 
@@ -66,7 +66,7 @@ export default function GameStatusBoard() {
           <div className="text-xl md:text-3xl font-bold text-primary tabular-nums" data-testid="text-progress-percentage">
             {formatProgress(progress)}%
           </div>
-          <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Complete</div>
+          <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Complete</div>
         </CardContent>
       </Card>
     </div>
