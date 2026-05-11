@@ -63,6 +63,29 @@ export default function Home() {
         <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-[#FFBDFC]/[0.025] blur-[120px] rounded-full pointer-events-none" />
 
         <div className="container max-w-6xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6 relative z-10">
+
+          {/* Canvas intro */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h2
+                className="text-lg md:text-xl font-bold leading-tight"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  background: "linear-gradient(90deg, #09D3FF, #FFBDFC)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Eternal Land
+              </h2>
+              <p className="text-xs text-muted-foreground mt-0.5">50 × 50 · Spore DOB/0 · Nervos CKB</p>
+            </div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-primary/30 bg-primary/10 text-xs font-mono text-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Live
+            </div>
+          </div>
+
           {/* Stats Bar */}
           <GameStatusBoard />
 
@@ -73,7 +96,7 @@ export default function Home() {
               {isMobile ? (
                 <MobileTierSelector onTierSelect={handleTierSelect} />
               ) : (
-                <PixelCanvas 
+                <PixelCanvas
                   onPixelSelect={handlePixelSelect}
                   selectedPixel={selectedPixel}
                 />

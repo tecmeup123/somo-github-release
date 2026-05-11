@@ -15,6 +15,7 @@ import { getTierColor, getContrastingTextColor, type PixelTier } from "@shared/c
 import { formatCKB } from "@/utils/formatting";
 import { useLocation } from "wouter";
 import CanvasPreview from "@/components/canvas/CanvasPreview";
+import Footer from "@/components/layout/Footer";
 import ckbEcoFundLogo from "@assets/rkDnocbU_400x400_1760975756377.jpg";
 
 // Sticky Navigation Component
@@ -175,6 +176,11 @@ export default function Landing() {
 
       {/* Final CTA */}
       <FinalCTASection />
+
+      {/* Footer */}
+      <div className="bg-black/50">
+        <Footer />
+      </div>
     </div>
   );
 }
@@ -325,7 +331,7 @@ function HeroSection() {
                 className="bg-[#09D3FF] text-[#061318] font-bold hover:bg-[#09D3FF]/90 px-8 py-6 text-base rounded-xl shadow-[0_0_20px_rgba(9,211,255,0.35)] hover:shadow-[0_0_28px_rgba(9,211,255,0.5)] transition-all disabled:opacity-50"
                 data-testid="button-hero-cta"
               >
-                {isConnecting ? "Connecting…" : signer ? "Enter the canvas" : "Enter the canvas"}
+                {isConnecting ? "Connecting…" : signer ? "Go to canvas" : "Enter the canvas"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
 

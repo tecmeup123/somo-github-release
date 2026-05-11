@@ -1,12 +1,12 @@
 import { Link, useLocation } from "wouter";
-import { Home, Grid, Trophy } from "lucide-react";
+import { Grid, User, Trophy } from "lucide-react";
 
 export default function BottomNavigation() {
   const [location] = useLocation();
 
   const navLinks = [
-    { href: "/app", label: "Canvas", icon: Home },
-    { href: "/my-pixels", label: "My Pixels", icon: Grid },
+    { href: "/app", label: "Canvas", icon: Grid },
+    { href: "/my-pixels", label: "My Pixels", icon: User },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
   ];
 

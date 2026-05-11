@@ -39,13 +39,13 @@ export default function RecentActivity() {
   const getActionLabel = (type: string) => {
     switch (type) {
       case 'mint':
-        return { label: 'Claimed', color: 'text-green-500' };
+        return { label: 'Claimed', color: 'text-green-500', bg: 'bg-green-500/10' };
       case 'transfer':
-        return { label: 'Transferred', color: 'text-blue-500' };
+        return { label: 'Transferred', color: 'text-blue-500', bg: 'bg-blue-500/10' };
       case 'melt':
-        return { label: 'Burned', color: 'text-orange-500' };
+        return { label: 'Burned', color: 'text-orange-500', bg: 'bg-orange-500/10' };
       default:
-        return { label: 'Activity', color: 'text-gray-500' };
+        return { label: 'Activity', color: 'text-gray-500', bg: 'bg-gray-500/10' };
     }
   };
 
@@ -83,7 +83,7 @@ export default function RecentActivity() {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className={`text-xs font-semibold uppercase px-1.5 py-0.5 rounded ${action.color} bg-current/10`}>
+                      <span className={`text-xs font-semibold uppercase px-1.5 py-0.5 rounded ${action.color} ${action.bg}`}>
                         {action.label}
                       </span>
                       {tx.type === 'transfer' && tx.fromUserAddress && tx.walletAddress ? (

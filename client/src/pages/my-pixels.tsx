@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PixelData } from "@/types/pixel";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ExternalLink, Send, Flame, Grid as GridIcon, Sparkles, Share2, Gift, Copy, Crown, Medal, TrendingUp } from "lucide-react";
+import { ExternalLink, Send, Flame, Grid as GridIcon, Sparkles, Share2, Gift, Copy, Crown, TrendingUp, Zap, Gem } from "lucide-react";
 import { TransferPixelDialog } from "@/components/wallet/TransferPixelDialog";
 import { MeltPixelDialog } from "@/components/wallet/MeltPixelDialog";
 import { formatCKB } from "@/utils/formatting";
@@ -16,10 +16,12 @@ import { getTierColor, getContrastingTextColor } from "@shared/canvas-utils";
 import { formatDistanceToNow } from "date-fns";
 import { GovernancePoints } from "@/components/governance/GovernancePoints";
 import { useToast } from "@/hooks/use-toast";
+import { Link, useLocation } from "wouter";
 
 export default function MyPixels() {
   const signer = ccc.useSigner();
   const { toast } = useToast();
+  const [, navigate] = useLocation();
   const [walletAddress, setWalletAddress] = useState<string>("");
   const [selectedPixel, setSelectedPixel] = useState<PixelData | null>(null);
   const [showTransfer, setShowTransfer] = useState(false);
@@ -58,17 +60,15 @@ export default function MyPixels() {
     enabled: !!walletAddress,
   });
 
-  // Sort pixels by tier (best first)
   const sortedPixels = useMemo(() => {
     const result = [...myPixels];
     const tierOrder = { legendary: 0, epic: 1, rare: 2, common: 3 };
-    result.sort((a, b) => 
+    result.sort((a, b) =>
       (tierOrder[a.tier as keyof typeof tierOrder] || 99) - (tierOrder[b.tier as keyof typeof tierOrder] || 99)
     );
     return result;
   }, [myPixels]);
 
-  // Calculate stats
   const stats = useMemo(() => {
     const tierCounts = { legendary: 0, epic: 0, rare: 0, common: 0 };
     myPixels.forEach(pixel => {
@@ -80,13 +80,12 @@ export default function MyPixels() {
   }, [myPixels]);
 
   const getTierIcon = (tier: string) => {
-    const icons = {
-      legendary: "🏆",
-      epic: "💎",
-      rare: "🔷",
-      common: "🟢"
-    };
-    return icons[tier as keyof typeof icons] || "⬜";
+    switch (tier) {
+      case 'legendary': return <Crown className="w-4 h-4" />;
+      case 'epic': return <Gem className="w-4 h-4" />;
+      case 'rare': return <Zap className="w-4 h-4" />;
+      default: return <Sparkles className="w-4 h-4" />;
+    }
   };
 
   const handleTransfer = (pixel: PixelData) => {
@@ -103,15 +102,15 @@ export default function MyPixels() {
     const shareData = {
       title: `My Pixel (${pixel.x}, ${pixel.y}) on SoMo`,
       text: `Check out my ${pixel.tier} pixel at coordinates (${pixel.x}, ${pixel.y})!`,
-      url: window.location.origin + `/?pixel=${pixel.x},${pixel.y}`
+      url: window.location.origin + `/app?pixel=${pixel.x},${pixel.y}`
     };
-    
+
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        alert('Link copied to clipboard!');
+        toast({ title: "Link copied!", description: "Pixel link copied to clipboard." });
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -120,7 +119,7 @@ export default function MyPixels() {
 
   const handleCopyReferralCode = async () => {
     if (!referralStats?.referralCode) return;
-    
+
     try {
       await navigator.clipboard.writeText(referralStats.referralCode);
       toast({
@@ -140,19 +139,19 @@ export default function MyPixels() {
 
   const handleShareReferralCode = async () => {
     if (!referralStats?.referralCode) return;
-    
+
     const shareData = {
       title: 'Join SoMo with my referral code!',
-      text: `🎨 Join the SoMo movement and earn governance tokens! Use my referral code: ${referralStats.referralCode} for a boost! 🚀`,
+      text: `Join the SoMo movement and earn governance tokens! Use my referral code: ${referralStats.referralCode} for a boost!`,
       url: window.location.origin + `/?ref=${referralStats.referralCode}`
     };
-    
+
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        alert('Referral link copied to clipboard!');
+        toast({ title: "Referral link copied!", description: "Share it to earn governance boosts." });
       }
     } catch (error) {
       console.error('Error sharing referral code:', error);
@@ -181,7 +180,7 @@ export default function MyPixels() {
   return (
     <MobileLayout>
       <Header />
-      
+
       <main className="flex-1 pb-safe relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary/[0.03] blur-[140px] rounded-full pointer-events-none" />
         <div className="container max-w-4xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6 relative z-10">
@@ -208,7 +207,7 @@ export default function MyPixels() {
           {/* Quick Stats */}
           {myPixels.length > 0 && (
             <div className="grid grid-cols-3 gap-2 md:gap-4">
-              <Card className="border-blue-500/30 bg-blue-500/5" data-testid="section-pixels-owned">
+              <Card className="border-blue-500/30 bg-blue-500/5 shadow-[0_0_16px_rgba(59,130,246,0.10)]" data-testid="section-pixels-owned">
                 <CardContent className="p-3 md:p-4 text-center">
                   <GridIcon className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-blue-500" />
                   <div className="text-xl md:text-3xl font-bold text-blue-500 tabular-nums" data-testid="text-pixels-owned">
@@ -218,7 +217,7 @@ export default function MyPixels() {
                 </CardContent>
               </Card>
 
-              <Card className="border-primary/30 bg-primary/5" data-testid="section-total-locked">
+              <Card className="border-primary/30 bg-primary/5 shadow-[0_0_16px_rgba(9,211,255,0.10)]" data-testid="section-total-locked">
                 <CardContent className="p-3 md:p-4 text-center">
                   <Sparkles className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-primary" />
                   <div className="text-xl md:text-3xl font-bold text-primary tabular-nums" data-testid="text-total-locked">
@@ -228,7 +227,7 @@ export default function MyPixels() {
                 </CardContent>
               </Card>
 
-              <Card className="border-amber-500/30 bg-amber-500/5" data-testid="section-referral-stats">
+              <Card className="border-amber-500/30 bg-amber-500/5 shadow-[0_0_16px_rgba(245,158,11,0.10)]" data-testid="section-referral-stats">
                 <CardContent className="p-3 md:p-4 text-center">
                   <Gift className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-amber-500" />
                   {referralStats && referralStats.referralCode ? (
@@ -249,9 +248,9 @@ export default function MyPixels() {
             </div>
           )}
 
-          {/* Referral Card (if has code) */}
+          {/* Referral Card */}
           {referralStats?.referralCode && (
-            <Card className="border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-transparent">
+            <Card className="border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-transparent shadow-[0_0_16px_rgba(245,158,11,0.08)]">
               <CardContent className="p-3 md:p-4">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
@@ -291,24 +290,31 @@ export default function MyPixels() {
             </Card>
           )}
 
-          {/* Tier Breakdown (if has pixels) */}
+          {/* Tier Breakdown */}
           {myPixels.length > 0 && (
-            <Card>
+            <Card className="border-border/50 shadow-[0_0_12px_rgba(9,211,255,0.05)]">
               <CardContent className="p-3 md:p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                   <h3 className="text-sm md:text-base font-semibold">Collection Breakdown</h3>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {Object.entries(stats.tierCounts).map(([tier, count]) => (
-                    <div key={tier} className="flex items-center gap-2 p-2 rounded-lg bg-muted/50">
-                      <span className="text-base md:text-lg">{getTierIcon(tier)}</span>
-                      <div className="min-w-0">
-                        <div className="text-xs text-muted-foreground capitalize truncate">{tier}</div>
-                        <div className="text-sm md:text-base font-bold tabular-nums">{count}</div>
+                  {Object.entries(stats.tierCounts).map(([tier, count]) => {
+                    const color = getTierColor(tier);
+                    return (
+                      <div
+                        key={tier}
+                        className="flex items-center gap-2 p-2 rounded-lg"
+                        style={{ backgroundColor: `${color}10`, border: `1px solid ${color}30` }}
+                      >
+                        <span style={{ color }}>{getTierIcon(tier)}</span>
+                        <div className="min-w-0">
+                          <div className="text-xs capitalize truncate" style={{ color: `${color}cc` }}>{tier}</div>
+                          <div className="text-sm md:text-base font-bold tabular-nums">{count}</div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -330,14 +336,14 @@ export default function MyPixels() {
                 </div>
                 <h3 className="text-lg md:text-2xl font-bold mb-2">Start Your Collection</h3>
                 <p className="text-sm md:text-base text-muted-foreground max-w-sm mx-auto mb-6">
-                  The canvas awaits! Claim your first pixel and begin building your influence.
+                  The canvas awaits. Claim your pixel and begin building your influence.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
-                  <Button size="lg" asChild className="w-full sm:w-auto">
-                    <a href="/">Explore Canvas</a>
+                  <Button size="lg" className="w-full sm:w-auto" onClick={() => navigate("/app")}>
+                    Explore Canvas
                   </Button>
-                  <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
-                    <a href="/leaderboard">View Leaderboard</a>
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto" asChild>
+                    <Link href="/leaderboard">View Leaderboard</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -345,25 +351,28 @@ export default function MyPixels() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               {sortedPixels.map((pixel) => {
-                const explorerUrl = pixel.sporeTxHash 
+                const tierColor = getTierColor(pixel.tier);
+                const explorerUrl = pixel.sporeTxHash
                   ? `https://pudge.explorer.nervos.org/transaction/${pixel.sporeTxHash}`
                   : `https://pudge.explorer.nervos.org/address/${walletAddress}`;
-                
+
                 return (
                   <Card
                     key={`${pixel.x}-${pixel.y}`}
-                    className="group relative overflow-hidden transition-all duration-200 border-border/50 active:scale-[0.98]"
+                    className="group relative overflow-hidden transition-all duration-200 active:scale-[0.98] border-l-4"
                     style={{
+                      borderLeftColor: tierColor,
+                      background: `linear-gradient(135deg, ${tierColor}08 0%, transparent 55%)`,
                       boxShadow: "none",
+                      borderTop: "1px solid rgba(255,255,255,0.06)",
+                      borderRight: "1px solid rgba(255,255,255,0.06)",
+                      borderBottom: "1px solid rgba(255,255,255,0.06)",
                     }}
                     onMouseEnter={(e) => {
-                      const color = getTierColor(pixel.tier);
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 18px ${color}22`;
-                      (e.currentTarget as HTMLElement).style.borderColor = `${color}55`;
+                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 22px ${tierColor}28`;
                     }}
                     onMouseLeave={(e) => {
                       (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                      (e.currentTarget as HTMLElement).style.borderColor = "";
                     }}
                     data-testid={`card-pixel-${pixel.x}-${pixel.y}`}
                   >
@@ -375,27 +384,28 @@ export default function MyPixels() {
                             <Crown className="h-4 w-4 text-yellow-500" />
                           </div>
                         ) : (
-                          <div className="p-1.5 rounded-full bg-purple-500/20 backdrop-blur-sm">
-                            <Sparkles className="h-3.5 w-3.5 text-purple-500" />
+                          <div className="p-1.5 rounded-full bg-[#FFBDFC]/20 backdrop-blur-sm">
+                            <Gem className="h-3.5 w-3.5 text-[#FFBDFC]" />
                           </div>
                         )}
                       </div>
                     )}
-                    
+
                     <CardContent className="p-3 md:p-4">
                       <div className="flex items-start gap-3">
                         {/* Pixel Preview */}
-                        <div 
-                          className="w-14 h-14 md:w-16 md:h-16 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold border-2 shadow-sm cursor-pointer"
-                          style={{ 
-                            backgroundColor: pixel.bgcolor || getTierColor(pixel.tier),
-                            color: pixel.textColor || getContrastingTextColor(getTierColor(pixel.tier)),
-                            borderColor: pixel.bgcolor || getTierColor(pixel.tier)
+                        <button
+                          className="w-14 h-14 md:w-16 md:h-16 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold border-2 shadow-sm cursor-pointer transition-transform hover:scale-105"
+                          style={{
+                            backgroundColor: pixel.bgcolor || tierColor,
+                            color: pixel.textColor || getContrastingTextColor(tierColor),
+                            borderColor: tierColor,
                           }}
-                          onClick={() => window.location.href = `/?pixel=${pixel.x},${pixel.y}`}
+                          onClick={() => navigate(`/app?pixel=${pixel.x},${pixel.y}`)}
+                          title="View on canvas"
                         >
                           {pixel.x},{pixel.y}
-                        </div>
+                        </button>
 
                         {/* Pixel Info */}
                         <div className="flex-1 min-w-0">
@@ -403,12 +413,12 @@ export default function MyPixels() {
                             ({pixel.x}, {pixel.y})
                           </h3>
                           <div className="flex items-center gap-2 flex-wrap mb-2">
-                            <Badge 
-                              variant="secondary" 
-                              className="text-xs px-1.5 py-0 h-5"
+                            <Badge
+                              variant="secondary"
+                              className="text-xs px-1.5 py-0 h-5 capitalize"
                               style={{
-                                color: getTierColor(pixel.tier),
-                                backgroundColor: getTierColor(pixel.tier) + '20'
+                                color: tierColor,
+                                backgroundColor: tierColor + '20'
                               }}
                             >
                               {pixel.tier}
@@ -425,7 +435,7 @@ export default function MyPixels() {
                         </div>
                       </div>
 
-                      {/* Action Buttons - 2x2 grid on mobile for proper touch targets */}
+                      {/* Action Buttons */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
                         <Button
                           variant="outline"
@@ -449,7 +459,7 @@ export default function MyPixels() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="h-11 text-xs px-3 justify-center"
+                          className="h-11 text-xs px-3 justify-center hover:border-red-500/50 hover:text-red-400"
                           onClick={() => handleMelt(pixel)}
                           data-testid={`button-melt-${pixel.x}-${pixel.y}`}
                         >

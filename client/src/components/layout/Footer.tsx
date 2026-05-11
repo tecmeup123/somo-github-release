@@ -83,7 +83,7 @@ export default function Footer() {
           className="mt-8 pt-8 text-center text-xs text-muted-foreground/60"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
-          &copy; 2025 SoMo Protocol. Built on Nervos CKB with Spore Protocol.
+          &copy; {new Date().getFullYear()} SoMo Protocol. Built on Nervos CKB with Spore Protocol.
         </div>
       </div>
     </footer>

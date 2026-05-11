@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Sparkles, Crown, Gem, Zap, Loader2 } from "lucide-react";
+import { Sparkles, Crown, Gem, Zap, Loader2, MonitorSmartphone } from "lucide-react";
 import { CanvasStats } from "@/types/pixel";
 import { formatCKB } from "@/utils/formatting";
 import { getTierColor } from "@shared/canvas-utils";
@@ -83,7 +83,7 @@ export default function MobileTierSelector({ onTierSelect }: MobileTierSelectorP
     return (
       <div className="space-y-4 p-4" data-testid="mobile-tier-selector-loading">
         <div className="text-center mb-4">
-          <h2 className="text-xl font-bold text-primary mb-1">Choose Your Tier</h2>
+          <h2 className="text-xl font-bold text-primary mb-1" style={{ fontFamily: "var(--font-display)" }}>Choose Your Tier</h2>
           <p className="text-xs text-muted-foreground">Loading tiers...</p>
         </div>
         <div className="flex items-center justify-center py-12">
@@ -97,7 +97,7 @@ export default function MobileTierSelector({ onTierSelect }: MobileTierSelectorP
     <div className="space-y-4 p-4" data-testid="mobile-tier-selector">
       {/* Clean Header */}
       <div className="text-center mb-4">
-        <h2 className="text-xl font-bold text-primary mb-1">Choose Your Tier</h2>
+        <h2 className="text-xl font-bold text-primary mb-1" style={{ fontFamily: "var(--font-display)" }}>Choose Your Tier</h2>
         <p className="text-xs text-muted-foreground">Select a tier to claim a random pixel</p>
       </div>
 
@@ -152,11 +152,10 @@ export default function MobileTierSelector({ onTierSelect }: MobileTierSelectorP
         })}
       </div>
 
-      {/* Desktop Notice - More Subtle */}
-      <div className="mt-4 p-3 bg-muted/20 rounded-lg border border-border/50">
-        <p className="text-xs text-center text-muted-foreground">
-          💡 Use desktop to view the interactive canvas
-        </p>
+      {/* Desktop Notice */}
+      <div className="mt-4 p-3 bg-muted/20 rounded-lg border border-border/50 flex items-center justify-center gap-2">
+        <MonitorSmartphone className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+        <p className="text-xs text-muted-foreground">Switch to desktop for the full interactive canvas</p>
       </div>
     </div>
   );
