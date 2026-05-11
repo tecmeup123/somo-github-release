@@ -43,7 +43,7 @@ export default function GovernanceBanner() {
         className="border border-primary/30 shadow-[0_0_20px_rgba(9,211,255,0.10)] bg-gradient-to-r from-primary/10 via-purple-500/5 to-transparent"
         data-testid="governance-banner"
       >
-        <CardContent className="p-4">
+        <CardContent className="p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="p-1.5 rounded-lg bg-primary/20 border border-primary/30">
@@ -69,7 +69,7 @@ export default function GovernanceBanner() {
       className="border border-primary/30 shadow-[0_0_20px_rgba(9,211,255,0.10)] bg-gradient-to-r from-primary/10 to-purple-500/5"
       data-testid="governance-banner"
     >
-      <CardContent className="p-4">
+      <CardContent className="p-6">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
