@@ -1,7 +1,7 @@
 # SoMo — Claude Code Guide
 
 ## What This Project Is
-SoMo ("Social Mosaic") is a pixel-based NFT governance game on Nervos CKB. Users claim one of 2,500 pixels on a 50×50 grid as a Spore DOB/0 NFT. Each pixel earns governance points toward a 350M token airdrop (snapshot March 31 2026) and grants voting power. Center pixels are highest tier/cost/reward.
+SoMo ("Social Movement") is a pixel-based NFT governance game on Nervos CKB. Users claim one of 2,500 pixels on a 50×50 grid as a Spore DOB/0 NFT. Each pixel earns governance points toward a 350M token airdrop (snapshot March 31 2026) and grants voting power. Center pixels are highest tier/cost/reward.
 
 ---
 
