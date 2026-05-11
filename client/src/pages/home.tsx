@@ -64,35 +64,32 @@ export default function Home() {
 
         <div className="container max-w-6xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6 relative z-10">
 
-          {/* Canvas intro */}
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h2
-                className="text-lg md:text-xl font-bold leading-tight"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  background: "linear-gradient(90deg, #09D3FF, #FFBDFC)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Eternal Land
-              </h2>
-              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-primary/30 bg-primary/10 text-xs font-mono text-primary">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Live
-              </div>
-            </div>
-            <p className="text-xs text-muted-foreground mt-0.5">50 × 50 · Spore DOB/0 · Nervos CKB</p>
-          </div>
-
-          {/* Stats Bar */}
-          <GameStatusBoard />
-
           {/* Canvas + Sidebar Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 md:gap-6 relative">
-            {/* Canvas Section */}
-            <div>
+            {/* Canvas Column: intro + stats + canvas together so they share the same width */}
+            <div className="space-y-4 md:space-y-6">
+              {/* Canvas intro */}
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <h2
+                    className="text-lg md:text-xl font-bold leading-tight"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      background: "linear-gradient(90deg, #09D3FF, #FFBDFC)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Eternal Land
+                  </h2>
+                  <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-primary/30 bg-primary/10 text-xs font-mono text-primary">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                    Live
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground mt-0.5">50 × 50 · Spore DOB/0 · Nervos CKB</p>
+              </div>
+              <GameStatusBoard />
               {isMobile ? (
                 <MobileTierSelector onTierSelect={handleTierSelect} />
               ) : (

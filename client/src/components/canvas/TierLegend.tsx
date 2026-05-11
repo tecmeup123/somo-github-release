@@ -10,7 +10,7 @@ export default function TierLegend() {
 
   return (
     <div className="mt-6 md:mt-8 pt-6 border-t border-border/50">
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-4">
           {tiers.map((tier) => (
             <div key={tier.name} className="flex items-center space-x-3 group">
