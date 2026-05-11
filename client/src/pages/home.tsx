@@ -56,14 +56,18 @@ export default function Home() {
   return (
     <MobileLayout>
       <Header />
-      
-      <main className="flex-1 pb-safe">
-        <div className="container max-w-6xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6">
+
+      <main className="flex-1 pb-safe relative">
+        {/* Ambient page glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-primary/[0.03] blur-[160px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-[#FFBDFC]/[0.025] blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="container max-w-6xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6 relative z-10">
           {/* Stats Bar */}
           <GameStatusBoard />
 
           {/* Canvas + Sidebar Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 md:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 md:gap-6 relative">
             {/* Canvas Section */}
             <div>
               {isMobile ? (

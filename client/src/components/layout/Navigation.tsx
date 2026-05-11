@@ -19,18 +19,26 @@ export default function Navigation() {
   return (
     <div className="hidden md:flex items-center gap-2">
       <nav className="flex items-center gap-1">
-        {navLinks.map(({ href, label, icon: Icon }) => (
-          <Link key={href} href={href}>
-            <Button
-              variant={isActive(href) ? "default" : "ghost"}
-              size="sm"
-              data-testid={`link-${label.toLowerCase().replace(' ', '-')}`}
-            >
-              <Icon className="h-4 w-4 mr-2" />
-              {label}
-            </Button>
-          </Link>
-        ))}
+        {navLinks.map(({ href, label, icon: Icon }) => {
+          const active = isActive(href);
+          return (
+            <Link key={href} href={href}>
+              <Button
+                variant={active ? "default" : "ghost"}
+                size="sm"
+                className={active
+                  ? "shadow-[0_0_14px_rgba(9,211,255,0.35)] hover:shadow-[0_0_20px_rgba(9,211,255,0.45)] transition-all duration-200"
+                  : "hover:text-primary transition-all duration-200"
+                }
+                style={active ? { fontFamily: "var(--font-display)", fontSize: "0.72rem", letterSpacing: "0.04em" } : {}}
+                data-testid={`link-${label.toLowerCase().replace(' ', '-')}`}
+              >
+                <Icon className={`h-4 w-4 mr-2 ${active ? "" : "opacity-70"}`} />
+                {label}
+              </Button>
+            </Link>
+          );
+        })}
       </nav>
     </div>
   );

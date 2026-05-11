@@ -75,14 +75,10 @@ export default function Leaderboard() {
 
   const getRankColor = (index: number) => {
     switch (index) {
-      case 0:
-        return 'bg-[#DBAB00]/10 border-[#DBAB00]/30';
-      case 1:
-        return 'bg-gray-400/10 border-gray-400/30';
-      case 2:
-        return 'bg-amber-700/10 border-amber-700/30';
-      default:
-        return 'bg-muted/50 border-border/30';
+      case 0: return 'bg-[#DBAB00]/10 border-[#DBAB00]/30 shadow-[0_0_20px_rgba(219,171,0,0.15)]';
+      case 1: return 'bg-gray-400/10 border-gray-400/30 shadow-[0_0_12px_rgba(156,163,175,0.10)]';
+      case 2: return 'bg-amber-700/10 border-amber-700/30 shadow-[0_0_12px_rgba(180,83,9,0.12)]';
+      default: return 'bg-muted/50 border-border/30';
     }
   };
 
@@ -90,11 +86,29 @@ export default function Leaderboard() {
     <MobileLayout>
       <Header />
       
-      <main className="flex-1 pb-safe">
-        <div className="container max-w-4xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6">
+      <main className="flex-1 pb-safe relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary/[0.03] blur-[140px] rounded-full pointer-events-none" />
+        <div className="container max-w-4xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6 relative z-10">
+
+          {/* Page heading */}
+          <div className="flex items-center gap-3">
+            <Trophy className="w-6 h-6 text-primary" style={{ filter: "drop-shadow(0 0 6px rgba(9,211,255,0.6))" }} />
+            <h1
+              className="text-2xl md:text-3xl font-bold"
+              style={{
+                fontFamily: "var(--font-display)",
+                background: "linear-gradient(90deg, #09D3FF, #FFBDFC)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Leaderboard
+            </h1>
+          </div>
+
           {/* Hero Stats - Mobile Optimized */}
           <div className="grid grid-cols-3 gap-2 md:gap-4">
-            <Card className="border-green-500/30 bg-green-500/5">
+            <Card className="border-green-500/30 bg-green-500/5 shadow-[0_0_16px_rgba(102,192,132,0.10)]">
               <CardContent className="p-3 md:p-4 text-center">
                 <Users className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-green-500" />
                 <div className="text-xl md:text-3xl font-bold text-green-500 tabular-nums" data-testid="text-total-founders">
@@ -104,7 +118,7 @@ export default function Leaderboard() {
               </CardContent>
             </Card>
 
-            <Card className="border-primary/30 bg-primary/5">
+            <Card className="border-primary/30 bg-primary/5 shadow-[0_0_16px_rgba(9,211,255,0.10)]">
               <CardContent className="p-3 md:p-4 text-center">
                 <Sparkles className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-primary" />
                 <div className="text-xl md:text-3xl font-bold text-primary tabular-nums" data-testid="text-total-ckb-locked">
@@ -114,7 +128,7 @@ export default function Leaderboard() {
               </CardContent>
             </Card>
 
-            <Card className="border-yellow-500/30 bg-yellow-500/5">
+            <Card className="border-yellow-500/30 bg-yellow-500/5 shadow-[0_0_16px_rgba(219,171,0,0.10)]">
               <CardContent className="p-3 md:p-4 text-center">
                 <Trophy className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-yellow-500" />
                 <div className="text-xl md:text-3xl font-bold text-yellow-500 tabular-nums" data-testid="text-top-influence">

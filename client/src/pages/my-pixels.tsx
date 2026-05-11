@@ -182,8 +182,26 @@ export default function MyPixels() {
     <MobileLayout>
       <Header />
       
-      <main className="flex-1 pb-safe">
-        <div className="container max-w-4xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6">
+      <main className="flex-1 pb-safe relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary/[0.03] blur-[140px] rounded-full pointer-events-none" />
+        <div className="container max-w-4xl mx-auto px-3 py-4 md:px-6 md:py-8 space-y-4 md:space-y-6 relative z-10">
+
+          {/* Page heading */}
+          <div className="flex items-center gap-3">
+            <GridIcon className="w-6 h-6 text-primary" style={{ filter: "drop-shadow(0 0 6px rgba(9,211,255,0.6))" }} />
+            <h1
+              className="text-2xl md:text-3xl font-bold"
+              style={{
+                fontFamily: "var(--font-display)",
+                background: "linear-gradient(90deg, #09D3FF, #66C084)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              My Pixels
+            </h1>
+          </div>
+
           {/* Governance Points */}
           <GovernancePoints walletAddress={walletAddress} />
 
@@ -334,7 +352,19 @@ export default function MyPixels() {
                 return (
                   <Card
                     key={`${pixel.x}-${pixel.y}`}
-                    className="group relative overflow-hidden hover:shadow-lg transition-all duration-200 border-border/50 hover:border-primary/50 active:scale-[0.98]"
+                    className="group relative overflow-hidden transition-all duration-200 border-border/50 active:scale-[0.98]"
+                    style={{
+                      boxShadow: "none",
+                    }}
+                    onMouseEnter={(e) => {
+                      const color = getTierColor(pixel.tier);
+                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 18px ${color}22`;
+                      (e.currentTarget as HTMLElement).style.borderColor = `${color}55`;
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                      (e.currentTarget as HTMLElement).style.borderColor = "";
+                    }}
                     data-testid={`card-pixel-${pixel.x}-${pixel.y}`}
                   >
                     {/* Rarity Badge */}
