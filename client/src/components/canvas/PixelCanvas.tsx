@@ -3,6 +3,7 @@ import { PixelData } from "@/types/pixel";
 import { usePixelData } from "@/hooks/usePixelData";
 import { ZOOM_LEVELS } from "@/constants/canvas";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MousePointerClick } from "lucide-react";
 import ZoomControls from "./ZoomControls";
 import PixelGrid from "./PixelGrid";
 import TierLegend from "./TierLegend";
@@ -55,7 +56,7 @@ export default function PixelCanvas({ onPixelSelect, selectedPixel }: PixelCanva
         {!selectedPixel && !isLoadingPixels && (
           <div className="mb-4 p-3 bg-accent/10 border border-accent/20 rounded-lg">
             <div className="flex items-center gap-2">
-              <div className="text-accent text-sm">🎯</div>
+              <MousePointerClick className="w-4 h-4 text-accent flex-shrink-0" />
               <p className="text-sm text-accent font-medium">
                 Click any pixel to select it and start claiming!
               </p>

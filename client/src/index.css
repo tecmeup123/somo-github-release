@@ -318,19 +318,19 @@ body::after {
   }
   
   .pixel.unclaimed.legendary {
-    background: transparent !important;
+    background: rgba(219, 171, 0, 0.14) !important;
   }
-  
+
   .pixel.unclaimed.epic {
-    background: transparent !important;
+    background: rgba(255, 189, 252, 0.09) !important;
   }
-  
+
   .pixel.unclaimed.rare {
-    background: transparent !important;
+    background: rgba(9, 211, 255, 0.06) !important;
   }
-  
+
   .pixel.unclaimed.common {
-    background: transparent !important;
+    background: rgba(102, 192, 132, 0.04) !important;
   }
   
   .pixel.selected {
