@@ -690,7 +690,7 @@ function HowItWorksSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">How It Works</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4" style={{ fontFamily: "var(--font-display)" }}>How It Works</h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             Mint pixels, earn governance power, shape the future
           </p>
@@ -808,7 +808,7 @@ function CriticalNoticeSection() {
             <CardContent className="pt-6">
               <div className="flex items-center gap-3 mb-6">
                 <AlertTriangle className="h-8 w-8 text-yellow-500 flex-shrink-0" />
-                <h2 className="text-2xl md:text-3xl font-bold">Important Information</h2>
+                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>Important Information</h2>
               </div>
               
               <div className="space-y-4 text-sm md:text-base">
@@ -1005,7 +1005,7 @@ function FAQSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">Frequently Asked Questions</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4" style={{ fontFamily: "var(--font-display)" }}>Frequently Asked Questions</h2>
           <p className="text-lg md:text-xl text-gray-400">Everything you need to know</p>
         </motion.div>
 
@@ -1173,7 +1173,7 @@ function FinalCTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6" style={{ fontFamily: "var(--font-display)" }}>
             Only 2,500 Founders.
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#DBAB00] via-[#FFBDFC] to-[#09D3FF]">

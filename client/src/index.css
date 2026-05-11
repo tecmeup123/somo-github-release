@@ -49,6 +49,11 @@ body {
   --font-sans: Inter, system-ui, sans-serif;
   --font-mono: JetBrains Mono, monospace;
   --font-display: Orbitron, system-ui, sans-serif;
+  /* Tier color primitives (RGB) — use as rgba(var(--color-legendary), opacity) */
+  --color-legendary: 219, 171, 0;
+  --color-epic: 255, 189, 252;
+  --color-rare: 9, 211, 255;
+  --color-common: 102, 192, 132;
 }
 
 .dark {

@@ -125,7 +125,7 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent className="bg-black dark:bg-black border-zinc-800 dark:border-zinc-800">
                 <SheetHeader>
-                  <SheetTitle className="text-[#DBAB00] dark:text-[#DBAB00]">Menu</SheetTitle>
+                  <SheetTitle className="text-yellow-500" style={{ fontFamily: "var(--font-display)" }}>Menu</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 space-y-2">
                   <Button
@@ -155,7 +155,7 @@ export default function Header() {
                 onDisconnect={disconnect}
               >
                 <button 
-                  className="px-2 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-mono tracking-wide transition-all duration-300 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-white flex items-center gap-1 md:gap-1.5"
+                  className="px-2 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-mono tracking-wide transition-all duration-300 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-white flex items-center gap-1 md:gap-1.5 shadow-[0_0_12px_rgba(34,197,94,0.20)] hover:shadow-[0_0_18px_rgba(34,197,94,0.32)]"
                   data-testid="button-wallet-info"
                 >
                   <img src={wallet.icon} alt={wallet.name} className="w-3 h-3 md:w-4 md:h-4" />
@@ -165,7 +165,7 @@ export default function Header() {
               </WalletModal>
             ) : (
               <button 
-                className="px-2 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-mono tracking-wide transition-all duration-300 bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-white"
+                className="px-2 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-mono tracking-wide transition-all duration-300 bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-white shadow-[0_0_12px_rgba(239,68,68,0.18)] hover:shadow-[0_0_18px_rgba(239,68,68,0.28)]"
                 onClick={open}
                 data-testid="button-connect-wallet"
               >

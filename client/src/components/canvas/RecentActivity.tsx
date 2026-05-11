@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Activity, ChevronDown } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { formatCKB } from "@/utils/formatting";
+import { getTierColor } from "@shared/canvas-utils";
 import { useState } from "react";
 
 interface Transaction {
@@ -30,17 +31,6 @@ export default function RecentActivity() {
   const recentTransactions = transactions.slice(0, displayLimit);
   const hasMore = transactions.length > displayLimit;
 
-  const getTierColor = (tier: string) => {
-    if (!tier) return '#666';
-    switch (tier.toLowerCase()) {
-      case 'legendary': return '#DBAB00';
-      case 'epic': return '#FFBDFC';
-      case 'rare': return '#09D3FF';
-      case 'common': return '#66C084';
-      default: return '#666';
-    }
-  };
-
   const formatAddress = (address: string) => {
     if (!address) return '';
     return `${address.slice(0, 8)}...${address.slice(-6)}`;
@@ -64,7 +54,7 @@ export default function RecentActivity() {
   }
 
   return (
-    <Card className="border-none shadow-md gradient-green territory-card pixel-pattern-bg" data-testid="recent-activity">
+    <Card className="border border-green-500/20 shadow-[0_0_20px_rgba(102,192,132,0.10)] gradient-green territory-card pixel-pattern-bg" data-testid="recent-activity">
       <div className="decorative-orb-large decorative-orb-green top-0 right-0 -translate-y-1/2 translate-x-1/2" />
       <div className="pixel-corner-accent pixel-corner-bottom-left text-green-500" />
       <CardHeader className="pb-3 relative z-10">
@@ -88,12 +78,12 @@ export default function RecentActivity() {
               >
                 <div className="flex items-center gap-2.5 flex-1 min-w-0">
                   <div
-                    className="w-2 h-2 rounded-full flex-shrink-0"
+                    className="w-2 h-2 rounded-full flex-shrink-0 mt-0.5"
                     style={{ backgroundColor: getTierColor(tx.tier) }}
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className={`text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded ${action.color} bg-current/10`}>
+                      <span className={`text-xs font-semibold uppercase px-1.5 py-0.5 rounded ${action.color} bg-current/10`}>
                         {action.label}
                       </span>
                       {tx.type === 'transfer' && tx.fromUserAddress && tx.walletAddress ? (

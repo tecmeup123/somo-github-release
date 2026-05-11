@@ -315,7 +315,7 @@ export default function Admin() {
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background">
-        <main className="p-4 md:p-6 max-w-6xl mx-auto">
+        <main className="px-4 py-6 md:px-6 md:py-8 max-w-6xl mx-auto">
           <div className="space-y-6">
             {/* Header */}
             <div className="flex items-center justify-between gap-3">
@@ -324,7 +324,7 @@ export default function Admin() {
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                  <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent" style={{ fontFamily: "var(--font-display)" }}>
                     Admin Dashboard
                   </h1>
                   <div className="flex items-center gap-2">

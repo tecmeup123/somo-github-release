@@ -30,7 +30,7 @@ export default function TopFoundersPreview() {
   const getRankIcon = (index: number) => {
     switch (index) {
       case 0:
-        return <Crown className="w-4 h-4 text-[#DBAB00]" />;
+        return <Crown className="w-4 h-4 text-yellow-500" />;
       case 1:
         return <Medal className="w-4 h-4 text-gray-400" />;
       case 2:
@@ -43,7 +43,7 @@ export default function TopFoundersPreview() {
   const getRankColor = (index: number) => {
     switch (index) {
       case 0:
-        return 'from-[#DBAB00]/20 to-[#DBAB00]/5';
+        return 'from-yellow-500/20 to-yellow-500/5';
       case 1:
         return 'from-gray-400/20 to-gray-400/5';
       case 2:
@@ -58,7 +58,7 @@ export default function TopFoundersPreview() {
   }
 
   return (
-    <Card className="border-none shadow-md gradient-legendary territory-card pixel-pattern-bg" data-testid="top-founders-preview">
+    <Card className="border border-yellow-500/20 shadow-[0_0_20px_rgba(219,171,0,0.10)] gradient-legendary territory-card pixel-pattern-bg" data-testid="top-founders-preview">
       <div className="decorative-orb-large decorative-orb-gold top-0 right-0 -translate-y-1/2 translate-x-1/2" />
       <div className="pixel-corner-accent pixel-corner-top-right text-yellow-500" />
       <CardHeader className="pb-3 relative z-10">

@@ -38,35 +38,35 @@ export default function GameStatusBoard() {
   return (
     <div className="grid grid-cols-3 gap-2 md:gap-4" data-testid="status-board">
       {/* Available Pixels */}
-      <Card className="border-blue-500/30 bg-blue-500/5">
+      <Card className="border-blue-500/30 bg-blue-500/5 shadow-[0_0_16px_rgba(59,130,246,0.10)]">
         <CardContent className="p-3 md:p-4 text-center">
           <Grid className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-blue-500" />
           <div className="text-xl md:text-3xl font-bold text-blue-500 tabular-nums" data-testid="text-remaining-pixels">
             {canvasStats?.remainingPixels?.toLocaleString() || '2,500'}
           </div>
-          <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Available</div>
+          <div className="text-xs md:text-sm font-medium text-muted-foreground mt-0.5 md:mt-1">Available</div>
         </CardContent>
       </Card>
 
       {/* Claimed Pixels */}
-      <Card className="border-green-500/30 bg-green-500/5">
+      <Card className="border-green-500/30 bg-green-500/5 shadow-[0_0_16px_rgba(102,192,132,0.10)]">
         <CardContent className="p-3 md:p-4 text-center">
           <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-green-500" />
           <div className="text-xl md:text-3xl font-bold text-green-500 tabular-nums" data-testid="text-claimed-pixels">
             {canvasStats?.claimedPixels?.toLocaleString() || '0'}
           </div>
-          <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Claimed</div>
+          <div className="text-xs md:text-sm font-medium text-muted-foreground mt-0.5 md:mt-1">Claimed</div>
         </CardContent>
       </Card>
 
       {/* Progress */}
-      <Card className="border-primary/30 bg-primary/5">
+      <Card className="border-primary/30 bg-primary/5 shadow-[0_0_16px_rgba(9,211,255,0.10)]">
         <CardContent className="p-3 md:p-4 text-center">
           <TrendingUp className="w-5 h-5 md:w-6 md:h-6 mx-auto mb-1 md:mb-2 text-primary" />
           <div className="text-xl md:text-3xl font-bold text-primary tabular-nums" data-testid="text-progress-percentage">
             {formatProgress(progress)}%
           </div>
-          <div className="text-xs text-muted-foreground mt-0.5 md:mt-1">Complete</div>
+          <div className="text-xs md:text-sm font-medium text-muted-foreground mt-0.5 md:mt-1">Complete</div>
         </CardContent>
       </Card>
     </div>
