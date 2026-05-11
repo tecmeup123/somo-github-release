@@ -98,6 +98,7 @@ export default function Home() {
                   selectedPixel={selectedPixel}
                 />
               )}
+              <GovernanceBanner />
             </div>
 
             {/* Sidebar */}
@@ -106,9 +107,6 @@ export default function Home() {
               <TopFoundersPreview />
             </div>
           </div>
-
-          {/* Governance Banner */}
-          <GovernanceBanner />
         </div>
       </main>
 
