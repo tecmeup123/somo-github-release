@@ -4,9 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Prevent horizontal overflow on all screen sizes */
-html, body {
-  overflow-x: hidden;
+/* Prevent horizontal overflow — apply only to body, not html */
+body {
+  overflow-x: clip;
 }
 
 /* Safe area utilities for notched/home-indicator devices */
